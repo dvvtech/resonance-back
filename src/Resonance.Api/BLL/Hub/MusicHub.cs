@@ -15,7 +15,7 @@ namespace Resonance.Api.BLL.Hub
             _logger = logger;
         }
 
-        public async Task JoinRoom(string roomId)
+        public async Task JoinRoom(int roomId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -24,7 +24,7 @@ namespace Resonance.Api.BLL.Hub
                 return;
             }
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId.ToString());
             _roomService.AddUserToRoom(roomId, Context.ConnectionId);
 
             // Отправляем информацию о комнате новому пользователю
@@ -55,22 +55,22 @@ namespace Resonance.Api.BLL.Hub
             await Clients.Caller.SendAsync("RoomInfo", roomInfo);
 
             // Уведомляем других о новом пользователе
-            await Clients.OthersInGroup(roomId).SendAsync("UserJoined", room.ConnectedUsers.Count);
+            await Clients.OthersInGroup(roomId.ToString()).SendAsync("UserJoined", room.ConnectedUsers.Count);
         }
 
-        public async Task LeaveRoom(string roomId)
+        public async Task LeaveRoom(int roomId)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId.ToString());
             _roomService.RemoveUserFromRoom(roomId, Context.ConnectionId);
 
             var room = _roomService.GetRoom(roomId);
             if (room != null)
             {
-                await Clients.Group(roomId).SendAsync("UserLeft", room.ConnectedUsers.Count);
+                await Clients.Group(roomId.ToString()).SendAsync("UserLeft", room.ConnectedUsers.Count);
             }
         }
 
-        public async Task PlayTrack(string roomId, string trackId, double position = 0)
+        public async Task PlayTrack(int roomId, int trackId, double position = 0)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -80,7 +80,7 @@ namespace Resonance.Api.BLL.Hub
             }
 
             // Только владелец может запускать воспроизведение
-            if (Context.ConnectionId != room.OwnerId)
+            if (Context.ConnectionId != room.OwnerId.ToString())
             {
                 await Clients.Caller.SendAsync("Error", "Only room owner can play music");
                 return;
@@ -99,7 +99,7 @@ namespace Resonance.Api.BLL.Hub
             room.LastPlayedAt = DateTime.UtcNow;
 
             // Уведомляем всех в комнате о начале воспроизведения
-            await Clients.Group(roomId).SendAsync("TrackStarted", new
+            await Clients.Group(roomId.ToString()).SendAsync("TrackStarted", new
             {
                 Track = new TrackDto
                 {
@@ -113,7 +113,7 @@ namespace Resonance.Api.BLL.Hub
             });
         }
 
-        public async Task PauseTrack(string roomId)
+        public async Task PauseTrack(int roomId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -123,7 +123,7 @@ namespace Resonance.Api.BLL.Hub
             }
 
             // Только владелец может ставить на паузу
-            if (Context.ConnectionId != room.OwnerId)
+            if (Context.ConnectionId != room.OwnerId.ToString())
             {
                 await Clients.Caller.SendAsync("Error", "Only room owner can pause music");
                 return;
@@ -136,10 +136,10 @@ namespace Resonance.Api.BLL.Hub
                 room.CurrentPosition += elapsed;
             }
 
-            await Clients.Group(roomId).SendAsync("TrackPaused", room.CurrentPosition);
+            await Clients.Group(roomId.ToString()).SendAsync("TrackPaused", room.CurrentPosition);
         }
 
-        public async Task SeekTrack(string roomId, double position)
+        public async Task SeekTrack(int roomId, double position)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -149,7 +149,7 @@ namespace Resonance.Api.BLL.Hub
             }
 
             // Только владелец может перематывать
-            if (Context.ConnectionId != room.OwnerId)
+            if (Context.ConnectionId != room.OwnerId.ToString())
             {
                 await Clients.Caller.SendAsync("Error", "Only room owner can seek");
                 return;
@@ -158,10 +158,10 @@ namespace Resonance.Api.BLL.Hub
             room.CurrentPosition = position;
             room.LastPlayedAt = DateTime.UtcNow;
 
-            await Clients.Group(roomId).SendAsync("TrackSeeked", position);
+            await Clients.Group(roomId.ToString()).SendAsync("TrackSeeked", position);
         }
 
-        public async Task SyncPosition(string roomId)
+        public async Task SyncPosition(int roomId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null) return;
@@ -185,11 +185,11 @@ namespace Resonance.Api.BLL.Hub
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             // Ищем комнаты где был этот пользователь и удаляем его
-            var rooms = _roomService.GetUserRooms(Context.ConnectionId);
+            var rooms = _roomService.GetUserRooms(int.Parse(Context.ConnectionId));
             foreach (var room in rooms)
             {
                 _roomService.RemoveUserFromRoom(room.Id, Context.ConnectionId);
-                await Clients.Group(room.Id).SendAsync("UserLeft", room.ConnectedUsers.Count);
+                await Clients.Group(room.Id.ToString()).SendAsync("UserLeft", room.ConnectedUsers.Count);
             }
 
             await base.OnDisconnectedAsync(exception);

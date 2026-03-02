@@ -2,8 +2,8 @@
 {
     public class Room
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString().Substring(0, 8);
-        public string OwnerId { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public int OwnerId { get; set; }
         public string RoomName { get; set; } = string.Empty;
         public List<Track> Tracks { get; set; } = new();
         public Track? CurrentTrack { get; set; }

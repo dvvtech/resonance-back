@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Resonance.Api.BLL.Abstract;
 using Resonance.Api.BLL.Models;
 using Resonance.Api.Models;
@@ -21,7 +20,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadTrack(IFormFile file, [FromHeader] string userId)
+        public async Task<IActionResult> UploadTrack(IFormFile file, [FromHeader] int userId)
         {
             var user = new User() { Id = 1, Username = "dvv" };//_authService.GetUserById(userId);
             if (user == null)
@@ -79,7 +78,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpDelete("{trackId}")]
-        public async Task<IActionResult> DeleteTrack(string trackId, [FromHeader] string userId)
+        public async Task<IActionResult> DeleteTrack(int trackId, [FromHeader] int userId)
         {
             var track = _tracks.FirstOrDefault(t => t.Id == trackId);
             if (track == null)

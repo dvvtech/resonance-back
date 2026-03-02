@@ -13,7 +13,7 @@ namespace Resonance.Api.BLL.Services
             _logger = logger;
         }
 
-        public Room CreateRoom(string ownerId, string roomName)
+        public Room CreateRoom(int ownerId, string roomName)
         {
             var room = new Room
             {
@@ -25,17 +25,17 @@ namespace Resonance.Api.BLL.Services
             return room;
         }
 
-        public Room? GetRoom(string roomId)
+        public Room? GetRoom(int roomId)
         {
             return _rooms.FirstOrDefault(r => r.Id == roomId);
         }
 
-        public List<Room> GetUserRooms(string userId)
+        public List<Room> GetUserRooms(int userId)
         {
             return _rooms.Where(r => r.OwnerId == userId).ToList();
         }
 
-        public bool AddTrackToRoom(string roomId, Track track)
+        public bool AddTrackToRoom(int roomId, Track track)
         {
             var room = GetRoom(roomId);
             if (room == null) return false;
@@ -44,7 +44,7 @@ namespace Resonance.Api.BLL.Services
             return true;
         }
 
-        public bool RemoveTrackFromRoom(string roomId, string trackId)
+        public bool RemoveTrackFromRoom(int roomId, int trackId)
         {
             var room = GetRoom(roomId);
             if (room == null) return false;
@@ -60,7 +60,7 @@ namespace Resonance.Api.BLL.Services
             return true;
         }
 
-        public bool SetCurrentTrack(string roomId, string trackId)
+        public bool SetCurrentTrack(int roomId, int trackId)
         {
             var room = GetRoom(roomId);
             if (room == null) return false;
@@ -72,7 +72,7 @@ namespace Resonance.Api.BLL.Services
             return true;
         }
 
-        public bool AddUserToRoom(string roomId, string connectionId)
+        public bool AddUserToRoom(int roomId, string connectionId)
         {
             var room = GetRoom(roomId);
             if (room == null) return false;
@@ -83,7 +83,7 @@ namespace Resonance.Api.BLL.Services
             return true;
         }
 
-        public bool RemoveUserFromRoom(string roomId, string connectionId)
+        public bool RemoveUserFromRoom(int roomId, string connectionId)
         {
             var room = GetRoom(roomId);
             if (room == null) return false;

@@ -13,7 +13,7 @@ namespace Resonance.Api.BLL.Services
             _logger = logger;
         }
 
-        public async Task<string> UploadTrackAsync(IFormFile file, string userId)
+        public async Task<string> UploadTrackAsync(IFormFile file, int userId)
         {
             // Здесь должна быть реальная интеграция с S3
             // Для примера возвращаем локальный путь

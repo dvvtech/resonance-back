@@ -2,9 +2,9 @@
 {
     public class RoomInfoDto
     {
-        public string Id { get; set; } = string.Empty;
+        public int Id { get; set; }
         public string RoomName { get; set; } = string.Empty;
-        public string OwnerId { get; set; } = string.Empty;
+        public int OwnerId { get; set; }
         public List<TrackDto> Tracks { get; set; } = new();
         public TrackDto? CurrentTrack { get; set; }
         public bool IsPlaying { get; set; }

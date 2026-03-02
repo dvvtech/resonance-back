@@ -20,7 +20,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateRoom(CreateRoomDto createRoomDto, [FromHeader] string userId)
+        public IActionResult CreateRoom(CreateRoomDto createRoomDto, [FromHeader] int userId)
         {
             var user = new User { Id = 1 }; //_authService.GetUserById(userId);
             if (user == null)
@@ -32,7 +32,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpGet("{roomId}")]
-        public IActionResult GetRoom(string roomId)
+        public IActionResult GetRoom(int roomId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -65,7 +65,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpPost("{roomId}/tracks")]
-        public IActionResult AddTrackToRoom(string roomId, [FromBody] string trackId, [FromHeader] string userId)
+        public IActionResult AddTrackToRoom(int roomId, [FromBody] int trackId, [FromHeader] int userId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -93,7 +93,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpDelete("{roomId}/tracks/{trackId}")]
-        public IActionResult RemoveTrackFromRoom(string roomId, string trackId, [FromHeader] string userId)
+        public IActionResult RemoveTrackFromRoom(int roomId, int trackId, [FromHeader] int userId)
         {
             var room = _roomService.GetRoom(roomId);
             if (room == null)
@@ -108,7 +108,7 @@ namespace Resonance.Api.Controllers
         }
 
         [HttpGet("my-rooms")]
-        public IActionResult GetMyRooms([FromHeader] string userId)
+        public IActionResult GetMyRooms([FromHeader] int userId)
         {
             var rooms = _roomService.GetUserRooms(userId)
                 .Select(r => new
