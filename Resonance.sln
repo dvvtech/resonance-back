@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{F666CFEE-E150-443D-A5B9-3CC7C4923C3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7818A468-499C-4BD4-BA3C-B9413B5DE3B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonance.Api", "src\Resonance.Api\Resonance.Api.csproj", "{CE7A041A-D043-41AC-9B2C-88774BE1CEB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE7A041A-D043-41AC-9B2C-88774BE1CEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7A041A-D043-41AC-9B2C-88774BE1CEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7A041A-D043-41AC-9B2C-88774BE1CEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7A041A-D043-41AC-9B2C-88774BE1CEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE7A041A-D043-41AC-9B2C-88774BE1CEB4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0343FCE6-77F9-43DC-B96C-50D6B253EC33}
+	EndGlobalSection
+EndGlobal
