@@ -17,6 +17,7 @@ namespace Resonance.Api.BLL.Services
         {
             var room = new Room
             {
+                Id = 1,
                 OwnerId = ownerId,
                 RoomName = roomName
             };

@@ -40,6 +40,7 @@ namespace Resonance.Api.Controllers
 
             var track = new Track
             {
+                Id = 1,
                 Title = Path.GetFileNameWithoutExtension(file.FileName),
                 Artist = user.Username,
                 S3Url = trackUrl,

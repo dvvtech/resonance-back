@@ -16,7 +16,8 @@ namespace Resonance.Api.Controllers
 
         public RoomsController(IRoomService roomService, List<Track> tracks)
         {
-            _roomService = roomService;            
+            _roomService = roomService;
+            _tracks = tracks;
         }
 
         [HttpPost("create")]
