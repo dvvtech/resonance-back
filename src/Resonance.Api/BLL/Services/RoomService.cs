@@ -8,6 +8,34 @@ namespace Resonance.Api.BLL.Services
         private readonly List<Room> _rooms = new();
         private readonly ILogger<RoomService> _logger;
 
+
+        public RoomService()
+        {
+            var track = new Track
+            {
+                Id = 1,
+                Title = "track-Title",
+                Artist = "track-Artist",
+                S3Url = "uploads/1_1234567890_track1.mp3"
+            };
+
+            var room = new Room
+            { 
+                Id = 1,
+                OwnerId = 1,
+                RoomName = "My room",
+
+                Tracks = new List<Track>
+                {
+                    track
+                },
+
+                CurrentTrack = track
+            };
+
+            _rooms.Add(room);
+        }
+
         public RoomService(ILogger<RoomService> logger)
         {
             _logger = logger;
@@ -19,7 +47,7 @@ namespace Resonance.Api.BLL.Services
             {
                 Id = 1,
                 OwnerId = ownerId,
-                RoomName = roomName
+                RoomName = roomName,                
             };
 
             _rooms.Add(room);
@@ -28,6 +56,34 @@ namespace Resonance.Api.BLL.Services
 
         public Room? GetRoom(int roomId)
         {
+            if (_rooms.Count == 0)
+            {
+                var track = new Track
+                {
+                    Id = 1,
+                    Title = "track-Title",
+                    Artist = "track-Artist",
+                    S3Url = "http://192.168.0.47:5221/uploads/1_639080881394941769.mp3"
+                    //S3Url = "uploads/1_1234567890_track1.mp3"
+                };
+
+                var room = new Room
+                {
+                    Id = 1,
+                    OwnerId = 1,
+                    RoomName = "My room",
+
+                    Tracks = new List<Track>
+                {
+                    track
+                },
+
+                    CurrentTrack = track
+                };
+
+                _rooms.Add(room);
+            }
+
             return _rooms.FirstOrDefault(r => r.Id == roomId);
         }
 

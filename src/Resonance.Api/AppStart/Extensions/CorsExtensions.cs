@@ -9,41 +9,19 @@
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(AllowSpecificOriginPolicy,
-                    policy =>
-                    {
-                        policy.WithOrigins("https://resonance.com")//"https://dvvtech.github.io"
-                              .AllowAnyHeader()
-                              .AllowAnyMethod()
-                              .AllowCredentials(); // Разрешить куки + signal r
-                                                   //.SetIsOriginAllowed(origin => true);
-                                                   //.SetIsOriginAllowedToAllowWildcardSubdomains();
-                    });
-
-                options.AddPolicy(AllowAllPolicy, policy =>
+                options.AddDefaultPolicy(policy =>
                 {
-                    policy.AllowAnyOrigin()  // Разрешить любой источник
-                                             //.AllowCredentials() // Разрешить куки + signal r
-                          .AllowAnyMethod()  // Разрешить любые HTTP-методы (GET, POST, PUT и т. д.)
-                          .AllowAnyHeader() // Разрешить любые заголовки
-                          .AllowCredentials();
-                    //.SetIsOriginAllowed(origin => true);
-                    //.SetIsOriginAllowedToAllowWildcardSubdomains();
+                    policy.SetIsOriginAllowed(origin => true) // Разрешить любые источники
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials(); // SignalR требует AllowCredentials
                 });
             });
         }
 
         public static void ApplyCors(this WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseCors(AllowAllPolicy);
-            }
-            else
-            {
-                //app.UseCors(AllowAllPolicy);
-                app.UseCors(AllowSpecificOriginPolicy);
-            }
+            app.UseCors(); // Используем для теста
         }
     }
 }

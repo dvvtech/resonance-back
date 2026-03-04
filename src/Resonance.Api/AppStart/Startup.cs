@@ -25,12 +25,11 @@ namespace Resonance.Api.AppStart
             if (_builder.Environment.IsDevelopment())
             {
                 _builder.Services.AddSwaggerGen();
+                
             }
-            else
-            {
-                _builder.Services.ConfigureCors();
-            }
-
+            
+            _builder.Services.ConfigureCors();
+            
             // Добавляем SignalR
             _builder.Services.AddSignalR();
 

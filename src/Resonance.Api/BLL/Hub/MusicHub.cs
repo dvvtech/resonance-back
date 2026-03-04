@@ -80,11 +80,11 @@ namespace Resonance.Api.BLL.Hub
             }
 
             // Только владелец может запускать воспроизведение
-            if (Context.ConnectionId != room.OwnerId.ToString())
-            {
-                await Clients.Caller.SendAsync("Error", "Only room owner can play music");
-                return;
-            }
+            //if (Context.ConnectionId != room.OwnerId.ToString())
+            //{
+            //    await Clients.Caller.SendAsync("Error", "Only room owner can play music");
+            //    return;
+            //}
 
             var track = room.Tracks.FirstOrDefault(t => t.Id == trackId);
             if (track == null)
@@ -100,6 +100,7 @@ namespace Resonance.Api.BLL.Hub
 
             // Уведомляем всех в комнате о начале воспроизведения
             await Clients.Group(roomId.ToString()).SendAsync("TrackStarted", new
+            //await Clients.OthersInGroup(roomId.ToString()).SendAsync("TrackStarted", new
             {
                 Track = new TrackDto
                 {
