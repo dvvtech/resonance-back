@@ -74,9 +74,9 @@ namespace Resonance.Api.BLL.Services
                     RoomName = "My room",
 
                     Tracks = new List<Track>
-                {
-                    track
-                },
+                    {
+                        track
+                    },
 
                     CurrentTrack = track
                 };

@@ -1,7 +1,9 @@
-﻿using Resonance.Api.AppStart.Extensions;
+﻿using Minio.AspNetCore;
+using Resonance.Api.AppStart.Extensions;
 using Resonance.Api.BLL.Abstract;
 using Resonance.Api.BLL.Models;
 using Resonance.Api.BLL.Services;
+using Resonance.Api.Configuration;
 
 namespace Resonance.Api.AppStart
 {
@@ -27,7 +29,10 @@ namespace Resonance.Api.AppStart
                 _builder.Services.AddSwaggerGen();
                 
             }
-            
+
+            InitConfigs();
+
+
             _builder.Services.ConfigureCors();
             
             // Добавляем SignalR
@@ -38,11 +43,26 @@ namespace Resonance.Api.AppStart
             _builder.Services.AddControllers();
         }
 
+        private void InitConfigs()
+        {
+            _builder.Services.Configure<S3Config>(_builder.Configuration.GetSection(S3Config.SectionName));
+        }
+
         private void RegisterServices()
         {
             _builder.Services.AddSingleton<IS3Service, S3Service>();
             _builder.Services.AddSingleton<IRoomService, RoomService>();
             _builder.Services.AddSingleton<List<Track>>(); // Временное хранилище
+
+            _builder.Services.AddMinio(options =>
+            {
+                var configSection = _builder.Configuration.GetSection(S3Config.SectionName);
+                var config = configSection.Get<S3Config>();
+
+                options.Endpoint = config.Endpoint;//"s3.your-provider.com";
+                options.AccessKey = config.AccessKey;//"your-key";
+                options.SecretKey = config.SecretKey;// "your-secret";
+            });
         }
     }
 }

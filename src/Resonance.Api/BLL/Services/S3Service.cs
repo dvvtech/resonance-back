@@ -1,4 +1,5 @@
-﻿using Resonance.Api.BLL.Abstract;
+﻿using Minio;
+using Resonance.Api.BLL.Abstract;
 
 namespace Resonance.Api.BLL.Services
 {
@@ -6,10 +7,15 @@ namespace Resonance.Api.BLL.Services
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<S3Service> _logger;
+        private readonly IMinioClient _minioClient;
 
-        public S3Service(IConfiguration configuration, ILogger<S3Service> logger)
+        public S3Service(
+            IConfiguration configuration,
+            IMinioClient minioClient,
+            ILogger<S3Service> logger)
         {
             _configuration = configuration;
+            _minioClient = minioClient;
             _logger = logger;
         }
 
