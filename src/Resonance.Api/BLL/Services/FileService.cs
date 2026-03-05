@@ -3,16 +3,17 @@ using Resonance.Api.BLL.Abstract;
 
 namespace Resonance.Api.BLL.Services
 {
-    public class S3Service : IS3Service
+    //S3Service
+    public class FileService : IFileService
     {
         private readonly IConfiguration _configuration;
-        private readonly ILogger<S3Service> _logger;
+        private readonly ILogger<FileService> _logger;
         private readonly IMinioClient _minioClient;
 
-        public S3Service(
+        public FileService(
             IConfiguration configuration,
             IMinioClient minioClient,
-            ILogger<S3Service> logger)
+            ILogger<FileService> logger)
         {
             _configuration = configuration;
             _minioClient = minioClient;

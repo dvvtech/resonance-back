@@ -9,12 +9,12 @@ namespace Resonance.Api.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
-        private readonly IS3Service _s3Service;
+        private readonly IFileService _s3Service;
 
         //todo будет БД
         private readonly List<Track> _tracks = new();
 
-        public TracksController(IS3Service s3Service)
+        public TracksController(IFileService s3Service)
         {
             _s3Service = s3Service;            
         }
