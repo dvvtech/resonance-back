@@ -51,6 +51,7 @@ namespace Resonance.Api.AppStart
         private void RegisterServices()
         {
             _builder.Services.AddSingleton<IFileService, FileService>();
+            _builder.Services.AddSingleton<IS3Service, S3Service>();
             _builder.Services.AddSingleton<IRoomService, RoomService>();
             _builder.Services.AddSingleton<List<Track>>(); // Временное хранилище
 
