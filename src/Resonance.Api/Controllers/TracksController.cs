@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Resonance.Api.BLL.Abstract;
 using Resonance.Api.BLL.Models;
+using Resonance.Api.BLL.Models.Music;
 using Resonance.Api.Models;
 
 namespace Resonance.Api.Controllers

@@ -1,4 +1,4 @@
-﻿using Resonance.Api.BLL.Models;
+﻿using Resonance.Api.BLL.Models.Music;
 
 namespace Resonance.Api.BLL.Abstract
 {

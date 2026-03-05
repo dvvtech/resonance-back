@@ -1,4 +1,4 @@
-﻿namespace Resonance.Api.BLL.Models
+﻿namespace Resonance.Api.BLL.Models.Music
 {
     public class Track
     {

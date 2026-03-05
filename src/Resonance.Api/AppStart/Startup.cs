@@ -1,7 +1,7 @@
 ﻿using Minio.AspNetCore;
 using Resonance.Api.AppStart.Extensions;
 using Resonance.Api.BLL.Abstract;
-using Resonance.Api.BLL.Models;
+using Resonance.Api.BLL.Models.Music;
 using Resonance.Api.BLL.Services;
 using Resonance.Api.Configuration;
 
